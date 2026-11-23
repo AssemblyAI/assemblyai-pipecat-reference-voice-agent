@@ -15,9 +15,9 @@ Run it from the repo root with `uv run src/bot.py`. Here's why each default is w
 
 ## Speech-to-text
 
-- **Universal-3.6 Pro decides when the user is done** (`vad_force_turn_endpoint=False`), from the words as well as the silence, and tells the user aggregator when turns start and end. `mode="balanced"` ends a turn after at most 1.28 seconds of silence.
-- **The STT knows what the agent just asked.** Pipecat passes each reply to Universal-3.6 Pro as context, so after "What's your email?" it expects an email. That needs no code.
-- **One speech threshold.** `VAD_THRESHOLD` (0.2, Universal-3.6 Pro's default) is used by both the STT and Silero, which catches interruptions, so the two agree on what counts as speech.
+- **AssemblyAI-STT-3.7-Realtime-Agent decides when the user is done** (`vad_force_turn_endpoint=False`), from the words as well as the silence, and tells the user aggregator when turns start and end. `mode="balanced"` ends a turn after at most 1.28 seconds of silence.
+- **The STT knows what the agent just asked.** Pipecat passes each reply to AssemblyAI-STT-3.7-Realtime-Agent as context, so after "What's your email?" it expects an email. That needs no code.
+- **One speech threshold.** `VAD_THRESHOLD` (0.2, AssemblyAI-STT-3.7-Realtime-Agent's default) is used by both the STT and Silero, which catches interruptions, so the two agree on what counts as speech.
 - **The agent's name is a key term**, so it's spelled right when users say it.
 
 ## The LLM and tools

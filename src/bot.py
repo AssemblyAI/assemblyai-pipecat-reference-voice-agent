@@ -1,8 +1,8 @@
 """A voice agent starter where every model is AssemblyAI's, on one API key.
 
 - Text-to-speech: AssemblyAI streaming TTS, with word-level timings (src/assemblyai_tts.py)
-- Speech-to-text: Universal-3.6 Pro streaming, which also decides when the user has finished
-  their turn
+- Speech-to-text: AssemblyAI-STT-3.7-Realtime-Agent streaming, which also decides when the
+  user has finished their turn
 - LLM: LLM Gateway, an OpenAI-compatible API for models from Google, OpenAI, Anthropic and more
 
 Each setting below names the skill in skills/ that explains when and how to change it.
@@ -21,8 +21,8 @@ from typing import Any
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from dotenv import load_dotenv
-from pipecat.adapters.schemas.function_schema import FunctionSchema
-from pipecat.adapters.schemas.tools_schema import ToolsSchema
+from pipecat.adapters.llm.schemas.function_schema import FunctionSchema
+from pipecat.adapters.llm.schemas.tools_schema import ToolsSchema
 from pipecat.audio.vad.silero import SileroVADAnalyzer
 from pipecat.audio.vad.vad_analyzer import VADParams
 from pipecat.frames.frames import EndWorkerFrame, FunctionCallResultProperties, TTSSpeakFrame
@@ -168,10 +168,10 @@ async def run_bot(transport: BaseTransport, runner_args: RunnerArguments) -> Non
 
     stt = AssemblyAISTTService(
         api_key=api_key,
-        # Universal-3.6 Pro decides when the user has finished speaking
+        # AssemblyAI-STT-3.7-Realtime-Agent decides when the user has finished speaking
         vad_force_turn_endpoint=False,
         settings=AssemblyAISTTService.Settings(
-            model="universal-3-6-pro",
+            model="assemblyai-stt-3-7-realtime-agent",
             mode=STT_MODE,
             vad_threshold=VAD_THRESHOLD,
             keyterms_prompt=STT_KEYTERMS,

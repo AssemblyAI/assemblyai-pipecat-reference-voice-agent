@@ -1,11 +1,11 @@
 ---
 name: keyterms-and-prompt
-description: Help Universal-3.6 Pro spell names, brands, products and jargon right with keyterms_prompt, and describe what conversations are about with prompt, including updating them mid-call (for example with the caller's name after a lookup). Use when setting up an agent for a specific business or domain, or when names, product names, technical terms or other words are transcribed wrong.
+description: Help AssemblyAI-STT-3.7-Realtime-Agent spell names, brands, products and jargon right with keyterms_prompt, and describe what conversations are about with prompt, including updating them mid-call (for example with the caller's name after a lookup). Use when setting up an agent for a specific business or domain, or when names, product names, technical terms or other words are transcribed wrong.
 ---
 
 # Key terms and prompt
 
-Universal-3.6 Pro is accurate out of the box, so start with neither and add them only for words it gets wrong, or will plainly need (the agent's own name, the company, its products). Both go in `AssemblyAISTTService.Settings(...)` in `src/bot.py`:
+AssemblyAI-STT-3.7-Realtime-Agent is accurate out of the box, so start with neither and add them only for words it gets wrong, or will plainly need (the agent's own name, the company, its products). Both go in `AssemblyAISTTService.Settings(...)` in `src/bot.py`:
 
 ```python
 STT_KEYTERMS = [ASSISTANT_NAME, "Northwind Bank", "FlexSaver", "Dr. Okafor"]
@@ -44,7 +44,7 @@ await stt.update_live(keyterms_prompt=[*STT_KEYTERMS, "Siobhan Ní Bhriain"])
 
 ## Already handled
 
-Pipecat passes each of the agent's replies to Universal-3.6 Pro as context (`agent_context`), so after "What's your email?" it expects an email. That's on by default and needs no code.
+Pipecat passes each of the agent's replies to AssemblyAI-STT-3.7-Realtime-Agent as context (`agent_context`), so after "What's your email?" it expects an email. That's on by default and needs no code.
 
 ## Check it
 
