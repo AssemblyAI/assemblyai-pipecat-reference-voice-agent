@@ -1,6 +1,6 @@
 # AGENTS.md
 
-A Pipecat (Python) voice agent starter where every model is AssemblyAI's: streaming text-to-speech, Universal-3.6 Pro streaming speech-to-text, and an LLM on the LLM Gateway, on one API key. The agent is a general assistant that tells the time; it's a template to build the user's own agent from. See @README.md for setup.
+A Pipecat (Python) voice agent starter where every model is AssemblyAI's: streaming text-to-speech, AssemblyAI-STT-3.7-Realtime-Agent streaming speech-to-text, and an LLM on the LLM Gateway, on one API key. The agent is a general assistant that tells the time; it's a template to build the user's own agent from. See @README.md for setup.
 
 ## Building an agent from this starter
 
@@ -58,11 +58,11 @@ Change one block at a time, run the tests, and have the user try it with `uv run
 ## AssemblyAI specifics
 
 - The LLM Gateway is OpenAI-compatible: `OpenAILLMService(base_url="https://llm-gateway.assemblyai.com/v1", api_key=ASSEMBLYAI_API_KEY, settings=OpenAILLMService.Settings(model=...))`. Model IDs have no provider prefix (`gemma-4-31b`). The EU Gateway serves a subset, and not `gemma-4-31b`.
-- Turn detection is Universal-3.6 Pro's own (`vad_force_turn_endpoint=False`): the STT tells the user aggregator when turns start and end. Tune it with `mode`, `min_turn_silence` and `max_turn_silence`.
+- Turn detection is AssemblyAI-STT-3.7-Realtime-Agent's own (`vad_force_turn_endpoint=False`): the STT tells the user aggregator when turns start and end. Tune it with `mode`, `min_turn_silence` and `max_turn_silence`.
 - The STT's `vad_threshold` and Silero's `confidence` are both `VAD_THRESHOLD`. Keep them equal.
-- In Pipecat 1.13, an `STTUpdateSettingsFrame` applies `language_codes` and `agent_context` live and reconnects the STT for every other setting. The `update_live` subclass in the turn-detection skill changes `min_turn_silence`, `max_turn_silence`, `keyterms_prompt` and `prompt` without reconnecting.
+- In Pipecat 1.17, an `STTUpdateSettingsFrame` applies `language_codes` and `agent_context` live and reconnects the STT for every other setting. The `update_live` subclass in the turn-detection skill changes `min_turn_silence`, `max_turn_silence`, `keyterms_prompt` and `prompt` without reconnecting.
 - TTS `language` takes a name (`spanish`) on the API; `AssemblyAITTSService` also accepts codes and `Language`s. Only the eleven featured `aai-*` voices speak all six TTS languages.
-- AssemblyAI docs: https://www.assemblyai.com/docs, with an index for agents at https://www.assemblyai.com/docs/llms.txt. Universal-3.6 Pro with Pipecat: https://www.assemblyai.com/docs/voice-agents/pipecat-universal-3-5-pro
+- AssemblyAI docs: https://www.assemblyai.com/docs, with an index for agents at https://www.assemblyai.com/docs/llms.txt. AssemblyAI-STT-3.7-Realtime-Agent with Pipecat: https://www.assemblyai.com/docs/voice-agents/pipecat
 
 ## Pipecat documentation
 

@@ -1,17 +1,17 @@
 ---
 name: interruptions-and-vad
-description: Tune what counts as speech (the VAD threshold, shared by Universal-3.6 Pro and Silero) and how the agent handles being interrupted (barge-in). Use when setting up an agent for a noisy or quiet environment, when background noise, TV, other people or echo make the agent stop talking or hear things, when quiet speakers aren't heard, when interruptions feel slow or too eager, or when some messages must not be interrupted.
+description: Tune what counts as speech (the VAD threshold, shared by AssemblyAI-STT-3.7-Realtime-Agent and Silero) and how the agent handles being interrupted (barge-in). Use when setting up an agent for a noisy or quiet environment, when background noise, TV, other people or echo make the agent stop talking or hear things, when quiet speakers aren't heard, when interruptions feel slow or too eager, or when some messages must not be interrupted.
 ---
 
 # Interruptions and VAD
 
-Two things decide when the user is speaking: Universal-3.6 Pro's own voice activity detection (`vad_threshold`) and Silero's in the user aggregator (`confidence`), which makes interruptions fast. They should agree, so both come from one setting in `src/bot.py`:
+Two things decide when the user is speaking: AssemblyAI-STT-3.7-Realtime-Agent's own voice activity detection (`vad_threshold`) and Silero's in the user aggregator (`confidence`), which makes interruptions fast. They should agree, so both come from one setting in `src/bot.py`:
 
 ```python
 VAD_THRESHOLD = 0.2  # used for Settings(vad_threshold=...) and VADParams(confidence=...)
 ```
 
-`0.2` is Universal-3.6 Pro's default in every mode. Always change the two together: if they differ, one hears speech the other doesn't, and interruptions lag.
+`0.2` is AssemblyAI-STT-3.7-Realtime-Agent's default in every mode. Always change the two together: if they differ, one hears speech the other doesn't, and interruptions lag.
 
 ## Ask
 

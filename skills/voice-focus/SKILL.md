@@ -5,7 +5,7 @@ description: Turn on AssemblyAI Voice Focus, server-side noise suppression that 
 
 # Voice Focus
 
-Voice Focus isolates the primary voice and suppresses background chatter, keyboard clicks, fan hum and room echo on AssemblyAI's side, before the audio reaches Universal-3.6 Pro. It's off by default. Turn it on in `src/bot.py`:
+Voice Focus isolates the primary voice and suppresses background chatter, keyboard clicks, fan hum and room echo on AssemblyAI's side, before the audio reaches AssemblyAI-STT-3.7-Realtime-Agent. It's off by default. Turn it on in `src/bot.py`:
 
 ```python
 AssemblyAISTTService.Settings(

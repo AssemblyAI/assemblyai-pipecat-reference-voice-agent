@@ -1,6 +1,6 @@
 ---
 name: medical-mode
-description: Turn on AssemblyAI Medical Mode for medical vocabulary (medications, doses, conditions, procedures) in Universal-3.6 Pro transcription. Use when the agent handles healthcare conversations, such as a clinic, pharmacy, telehealth, patient intake, insurance or care line, or when drug names and medical terms are transcribed wrong. Also covers handling health data (HIPAA, BAA).
+description: Turn on AssemblyAI Medical Mode for medical vocabulary (medications, doses, conditions, procedures) in AssemblyAI-STT-3.7-Realtime-Agent transcription. Use when the agent handles healthcare conversations, such as a clinic, pharmacy, telehealth, patient intake, insurance or care line, or when drug names and medical terms are transcribed wrong. Also covers handling health data (HIPAA, BAA).
 ---
 
 # Medical Mode

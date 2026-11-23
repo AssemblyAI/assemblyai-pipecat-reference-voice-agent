@@ -5,7 +5,7 @@ A voice agent template for [Pipecat](https://github.com/pipecat-ai/pipecat) wher
 | | AssemblyAI model | |
 |---|---|---|
 | **Voice** | [Streaming text-to-speech](https://www.assemblyai.com/docs/tts/getting-started/quickstart) | 4,000+ voices in six languages, or your own cloned voice. Word timings mean an interrupted reply is remembered only up to the words the user heard. |
-| **Ears** | [Universal-3.6 Pro](https://www.assemblyai.com/docs/voice-agents/pipecat-universal-3-5-pro) | Streaming speech-to-text that also decides when the user has finished talking, and holds the turn open while they read out a number or an email. |
+| **Ears** | [AssemblyAI-STT-3.7-Realtime-Agent](https://www.assemblyai.com/docs/voice-agents/pipecat) | Streaming speech-to-text that also decides when the user has finished talking, and holds the turn open while they read out a number or an email. |
 | **Brain** | [LLM Gateway](https://www.assemblyai.com/docs/llm-gateway/quickstart) | 50 models from Google, OpenAI, Anthropic and others, with tool calling, behind one OpenAI-compatible API. |
 
 The AssemblyAI TTS service for Pipecat is [`src/assemblyai_tts.py`](src/assemblyai_tts.py), one file you can copy into any Pipecat bot.
@@ -72,9 +72,9 @@ Open the repo in Claude Code, Cursor or Codex and describe the agent you want. [
 ## How it works
 
 ```
-transport ──▶ Universal-3.6 Pro ──▶ LLM Gateway ──▶ AssemblyAI TTS ──▶ transport
-              speech-to-text,        reply and        word-timed
-              end of turn            tool calls       speech
+transport ──▶ AssemblyAI-STT-3.7-Realtime-Agent ──▶ LLM Gateway ──▶ AssemblyAI TTS ──▶ transport
+              speech-to-text,                        reply and        word-timed
+              end of turn                            tool calls       speech
 ```
 
 The whole agent is [`src/bot.py`](src/bot.py). [`src/README.md`](src/README.md) explains each default.

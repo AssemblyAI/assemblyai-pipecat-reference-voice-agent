@@ -17,7 +17,7 @@ from dataclasses import dataclass, field
 
 import pytest
 from openai import AsyncOpenAI
-from pipecat.adapters.services.open_ai_adapter import OpenAILLMAdapter
+from pipecat.adapters.llm.services.open_ai_adapter import OpenAILLMAdapter
 
 from bot import GREETING, INSTRUCTIONS, LLM_GATEWAY_URL, LLM_MODEL, TOOLS, call_tool
 
