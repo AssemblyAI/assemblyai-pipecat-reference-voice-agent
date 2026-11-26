@@ -33,7 +33,14 @@ Up to 10. Leave it unset for anything-goes multilingual. It can change mid-call,
 AssemblyAI TTS speaks English, Spanish, German, French, Italian and Portuguese:
 
 ```python
-tts = AssemblyAITTSService(api_key=api_key, voice=TTS_VOICE, language="es")  # or Language.ES
+tts = AssemblyAITTSService(
+    api_key=api_key,
+    settings=AssemblyAITTSService.Settings(
+        model="assemblyai-tts-1",
+        voice=TTS_VOICE,
+        language=Language.ES,
+    ),
+)
 ```
 
 The voice must speak the language. The eleven featured voices (`aai-jane`, `aai-michael` and the rest) speak all six; every other library voice, and every cloned voice, speaks only the language it was recorded in. To find voices recorded in a language, see the [tts-voice skill](../tts-voice/SKILL.md) (`&language=spanish`).

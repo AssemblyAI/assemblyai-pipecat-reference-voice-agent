@@ -3,15 +3,14 @@
 | File | What's in it |
 |---|---|
 | [`bot.py`](bot.py) | The whole agent: the settings, each naming its skill; the instructions, greeting and tools; `run_bot`, which builds the pipeline |
-| [`assemblyai_tts.py`](assemblyai_tts.py) | `AssemblyAITTSService`: AssemblyAI streaming TTS as a Pipecat service, with word timings and interruptions. Copy it into any Pipecat bot |
 
 Run it from the repo root with `uv run src/bot.py`. Here's why each default is what it is.
 
 ## Text-to-speech
 
-- **One session per call.** `AssemblyAITTSService` keeps one WebSocket to AssemblyAI open for the call, and sends each sentence from the LLM as soon as it's ready.
+- **Streaming by sentence.** Pipecat's `AssemblyAITTSService` sends each sentence from the LLM as soon as it's ready and reuses the connection between replies.
 - **The greeting doesn't wait for the LLM.** When the user connects, a `TTSSpeakFrame` sends a fixed greeting straight to the TTS.
-- **Interruptions are remembered word by word.** The service passes AssemblyAI's word timings on as the bot's spoken text. When the user cuts in, it cancels the reply, and the reply saved in the LLM context ends at the last word the user heard.
+- **Interruptions use word timings when available.** When the user cuts in, the service cancels the reply. Word timings let Pipecat save just the words the user heard. A reply still finishes if the provider omits its timings.
 
 ## Speech-to-text
 

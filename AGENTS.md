@@ -35,9 +35,9 @@ Change one block at a time, run the tests, and have the user try it with `uv run
 ## Layout
 
 - `src/bot.py`: the whole agent. Model settings at the top, each naming its skill; the instructions, greeting, tool functions and their `TOOLS` schemas; `run_bot`, which builds the pipeline. The STT settings list the optional building blocks, commented out. `bot()` is the entry point for Pipecat's runner and Pipecat Cloud.
-- `src/assemblyai_tts.py`: `AssemblyAITTSService`, AssemblyAI streaming TTS as a Pipecat `WebsocketTTSService`. Pipecat doesn't ship one yet.
 - `tests/test_bot.py`: text-only tests through the LLM Gateway, using the same instructions, schemas and tool functions as `src/bot.py`; tool calls checked, wording judged by an LLM.
 - `tests/test_tts.py`: live tests of `AssemblyAITTSService`.
+- `tests/test_tts_offline.py`: verifies that a reply finishes when the TTS provider omits word timings.
 - `skills/`: one `SKILL.md` per building block. `.claude/skills` links to it, so Claude Code loads them automatically; other agents should read the relevant `SKILL.md` before changing a setting.
 - Each folder has a `README.md` for people. Keep them in step with the code.
 
@@ -53,7 +53,7 @@ Change one block at a time, run the tests, and have the user try it with `uv run
 - Tools are plain functions with no Pipecat code, listed in `TOOL_FUNCTIONS`, with schemas in `TOOLS`. Keep the two in step. Use `"enum"` for fixed choices. Raise `ToolError` with a message that tells the model how to recover.
 - Everything the agent writes is spoken. Tool outputs and instructions should produce short, plain sentences, with no markdown or lists.
 - Don't log personal details. Log IDs only.
-- After changing `src/assemblyai_tts.py`, run `uv run pytest tests/test_tts.py`.
+- After changing the TTS configuration, run `uv run pytest tests/test_tts*.py`.
 
 ## AssemblyAI specifics
 
@@ -61,7 +61,7 @@ Change one block at a time, run the tests, and have the user try it with `uv run
 - Turn detection is AssemblyAI-STT-3.7-Realtime-Agent's own (`vad_force_turn_endpoint=False`): the STT tells the user aggregator when turns start and end. Tune it with `mode`, `min_turn_silence` and `max_turn_silence`.
 - The STT's `vad_threshold` and Silero's `confidence` are both `VAD_THRESHOLD`. Keep them equal.
 - In Pipecat 1.17, an `STTUpdateSettingsFrame` applies `language_codes` and `agent_context` live and reconnects the STT for every other setting. The `update_live` subclass in the turn-detection skill changes `min_turn_silence`, `max_turn_silence`, `keyterms_prompt` and `prompt` without reconnecting.
-- TTS `language` takes a name (`spanish`) on the API; `AssemblyAITTSService` also accepts codes and `Language`s. Only the eleven featured `aai-*` voices speak all six TTS languages.
+- Use `AssemblyAITTSService` from `pipecat.services.assemblyai.tts`. Its `Settings` takes the model, voice and language. Only the eleven featured `aai-*` voices speak all six TTS languages.
 - AssemblyAI docs: https://www.assemblyai.com/docs, with an index for agents at https://www.assemblyai.com/docs/llms.txt. AssemblyAI-STT-3.7-Realtime-Agent with Pipecat: https://www.assemblyai.com/docs/voice-agents/pipecat
 
 ## Pipecat documentation
