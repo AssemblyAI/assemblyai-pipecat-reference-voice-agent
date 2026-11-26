@@ -24,7 +24,7 @@ from pipecat.frames.frames import (
 )
 from pipecat.tests.utils import SleepFrame, run_test
 
-from assemblyai_tts import AssemblyAITTSService
+from bot import TTS_VOICE, AssemblyAITTSService
 
 load_dotenv(Path(__file__).parents[1] / ".env.local")
 
@@ -33,6 +33,15 @@ pytestmark = pytest.mark.skipif(
 )
 
 SAMPLE_RATE = 24000
+
+
+@pytest.fixture
+def tts() -> AssemblyAITTSService:
+    return AssemblyAITTSService(
+        api_key=os.environ["ASSEMBLYAI_API_KEY"],
+        sample_rate=SAMPLE_RATE,
+        settings=AssemblyAITTSService.Settings(model="assemblyai-tts-1", voice=TTS_VOICE),
+    )
 
 
 def reply(*sentences: str) -> list:
@@ -44,9 +53,9 @@ def reply(*sentences: str) -> list:
     ]
 
 
-async def test_speaks_a_reply_with_word_timings() -> None:
+async def test_speaks_a_reply_with_word_timings(tts: AssemblyAITTSService) -> None:
     frames, errors = await run_test(
-        AssemblyAITTSService(sample_rate=SAMPLE_RATE),
+        tts,
         frames_to_send=[
             *reply("Thanks for calling Riverside Family Medicine. ", "How can I help? "),
             SleepFrame(sleep=5),
@@ -68,13 +77,13 @@ async def test_speaks_a_reply_with_word_timings() -> None:
     assert times == sorted(times)
 
 
-async def test_an_interruption_cancels_the_reply() -> None:
+async def test_an_interruption_cancels_the_reply(tts: AssemblyAITTSService) -> None:
     long_reply = reply(
         "When you come in, please bring your insurance card, a photo ID and a list of every "
         "medication you take, with the doses, so the doctor can review them with you. "
     )
     frames, errors = await run_test(
-        AssemblyAITTSService(sample_rate=SAMPLE_RATE),
+        tts,
         frames_to_send=[
             *long_reply,
             # Synthesis runs faster than real time, so interrupt while it's still going

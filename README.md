@@ -8,7 +8,7 @@ A voice agent template for [Pipecat](https://github.com/pipecat-ai/pipecat) wher
 | **Ears** | [AssemblyAI-STT-3.7-Realtime-Agent](https://www.assemblyai.com/docs/voice-agents/pipecat) | Streaming speech-to-text that also decides when the user has finished talking, and holds the turn open while they read out a number or an email. |
 | **Brain** | [LLM Gateway](https://www.assemblyai.com/docs/llm-gateway/quickstart) | 50 models from Google, OpenAI, Anthropic and others, with tool calling, behind one OpenAI-compatible API. |
 
-The AssemblyAI TTS service for Pipecat is [`src/assemblyai_tts.py`](src/assemblyai_tts.py), one file you can copy into any Pipecat bot.
+For other Pipecat bots, import `AssemblyAITTSService` from `pipecat.services.assemblyai.tts`. See the [AssemblyAI TTS guide for Pipecat](https://www.assemblyai.com/docs/tts/pipecat).
 
 Using LiveKit? See [assemblyai-livekit-reference-voice-agent](https://github.com/AssemblyAI-Solutions/assemblyai-livekit-reference-voice-agent).
 

@@ -1,6 +1,6 @@
 """A voice agent starter where every model is AssemblyAI's, on one API key.
 
-- Text-to-speech: AssemblyAI streaming TTS, with word-level timings (src/assemblyai_tts.py)
+- Text-to-speech: AssemblyAI streaming TTS, with word-level timings
 - Speech-to-text: AssemblyAI-STT-3.7-Realtime-Agent streaming, which also decides when the
   user has finished their turn
 - LLM: LLM Gateway, an OpenAI-compatible API for models from Google, OpenAI, Anthropic and more
@@ -36,14 +36,13 @@ from pipecat.processors.aggregators.llm_response_universal import (
 from pipecat.runner.types import RunnerArguments
 from pipecat.runner.utils import create_transport
 from pipecat.services.assemblyai.stt import AssemblyAISTTService
+from pipecat.services.assemblyai.tts import AssemblyAITTSService
 from pipecat.services.llm_service import FunctionCallParams
 from pipecat.services.openai.llm import OpenAILLMService
 from pipecat.transports.base_transport import BaseTransport, TransportParams
 from pipecat.transports.daily.transport import DailyParams
 from pipecat.transports.websocket.fastapi import FastAPIWebsocketParams
 from pipecat.workers.runner import WorkerRunner
-
-from assemblyai_tts import AssemblyAITTSService
 
 load_dotenv(Path(__file__).parents[1] / ".env.local")
 
@@ -187,7 +186,10 @@ async def run_bot(transport: BaseTransport, runner_args: RunnerArguments) -> Non
         base_url=LLM_GATEWAY_URL,
         settings=OpenAILLMService.Settings(model=LLM_MODEL, system_instruction=INSTRUCTIONS),
     )
-    tts = AssemblyAITTSService(api_key=api_key, voice=TTS_VOICE)
+    tts = AssemblyAITTSService(
+        api_key=api_key,
+        settings=AssemblyAITTSService.Settings(model="assemblyai-tts-1", voice=TTS_VOICE),
+    )
 
     context = LLMContext(tools=TOOLS)
     user_aggregator, assistant_aggregator = LLMContextAggregatorPair(

@@ -8,13 +8,15 @@ description: Keep audio, text and LLM requests in the EU (or pin them to the US)
 Each AssemblyAI service has its own regional host. To keep everything in the EU, change all three in `src/bot.py`:
 
 ```python
-from assemblyai_tts import EU_BASE_URL
-
 LLM_GATEWAY_URL = "https://llm-gateway.eu.assemblyai.com/v1"
 ...
 stt = AssemblyAISTTService(..., api_endpoint_base_url="wss://streaming.eu.assemblyai.com/v3/ws")
 ...
-tts = AssemblyAITTSService(api_key=api_key, voice=TTS_VOICE, base_url=EU_BASE_URL)
+tts = AssemblyAITTSService(
+    api_key=api_key,
+    url="wss://tts.eu.assemblyai.com/v1/ws",
+    settings=AssemblyAITTSService.Settings(model="assemblyai-tts-1", voice=TTS_VOICE),
+)
 ```
 
 ## The LLM

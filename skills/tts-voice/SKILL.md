@@ -5,13 +5,16 @@ description: Choose the agent's AssemblyAI text-to-speech voice, find and previe
 
 # TTS voice
 
-The agent speaks with AssemblyAI streaming TTS. The voice is set in `src/bot.py`, through `AssemblyAITTSService` in `src/assemblyai_tts.py`:
+The agent speaks with Pipecat's `AssemblyAITTSService` for AssemblyAI streaming TTS. The voice is set in `src/bot.py`:
 
 ```python
 TTS_VOICE = "49c443a4-8a1d-5f7e-b70b-98bdbd9823c3"  # Audrey
 ASSISTANT_NAME = "Audrey"
 ...
-tts = AssemblyAITTSService(api_key=api_key, voice=TTS_VOICE)
+tts = AssemblyAITTSService(
+    api_key=api_key,
+    settings=AssemblyAITTSService.Settings(model="assemblyai-tts-1", voice=TTS_VOICE),
+)
 ```
 
 `ASSISTANT_NAME` is used in the greeting, the instructions and the STT's key terms. When the voice changes, change the name to the voice's name, unless the user wants the agent called something else.
